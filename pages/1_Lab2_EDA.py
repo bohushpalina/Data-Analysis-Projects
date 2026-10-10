@@ -78,7 +78,6 @@ def show_fig(fig):
 
 st.title("Лабораторная 2 — Разведочный анализ данных")
 
-# ---------------------------------------------------------------- sidebar
 st.sidebar.header("1. Датасет")
 ds_name = st.sidebar.selectbox("Выберите датасет", list(DATASETS))
 
@@ -118,7 +117,6 @@ for c in filter_cat:
 
 fdf = df[mask]
 
-# ---------------------------------------------------------------- summary
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Строк (исходно)", f"{len(raw):,}")
 c2.metric("Строк после очистки", f"{len(df):,}")
@@ -135,7 +133,6 @@ if fdf.empty:
 
 tab_data, tab_stats, tab_plots = st.tabs(["Таблица", "Статистика и пропуски", "Графики"])
 
-# ---------------------------------------------------------------- table tab
 with tab_data:
     cols = st.multiselect("Показать столбцы", list(fdf.columns), default=list(fdf.columns))
     view = st.radio("Какие строки показать", ["Первые", "Последние", "Случайные"], horizontal=True)

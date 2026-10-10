@@ -27,7 +27,6 @@ DATASETS = {
     "Датасет №2: Churn Modelling": "shrutimechlearn/churn-modelling",
 }
 
-# лучшие параметры из ноутбука (GridSearchCV) — подсказка для пользователя
 BEST_FROM_NOTEBOOK = pd.DataFrame(
     {
         "Алгоритм": ["kNN", "Decision Tree", "SVM", "MLP"],
@@ -103,7 +102,6 @@ def train_and_evaluate(ds_name, model_name, params_items):
     }
 
 
-# ---------------------------------------------------------------- UI
 st.title("Лабораторная 4 — Классификация")
 st.write(
     "Выберите датасет и классификатор, меняйте гиперпараметры в боковой панели — "
@@ -187,7 +185,6 @@ with right:
         "ориентируйтесь на Recall и F1."
     )
 
-# ---------------------------------------------------------------- comparison table
 st.markdown("---")
 st.subheader("Сравнение конфигураций")
 

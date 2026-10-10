@@ -100,7 +100,6 @@ if not features:
 
 data = load_dataset(cfg["slug"])
 
-# ---------------------------------------------------------------- sidebar: sliders
 st.sidebar.header("Значения признаков")
 input_mode = st.sidebar.radio("Способ ввода", ["Ползунки", "Числовые поля"], horizontal=True)
 values = {}
@@ -118,7 +117,6 @@ for f in features:
         values[f] = st.sidebar.number_input(label, min_value=0.0, value=default, step=0.1,
                                             key=f"number_{f}")
 
-# ---------------------------------------------------------------- prediction
 X_new = pd.DataFrame([values], columns=features)
 prediction = float(model.predict(X_new)[0])
 
@@ -147,7 +145,6 @@ with col_a:
             use_container_width=True, hide_index=True,
         )
 
-# ---------------------------------------------------------------- live charts
 with col_b:
     st.markdown("**График предсказаний (обновляется при движении ползунков)**")
 
