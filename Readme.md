@@ -109,7 +109,7 @@ The lab includes data preprocessing, training of four classifiers with default p
 
 All optional Streamlit tasks of Labs 2–4 are combined on **one website**.
 
-**Open the app:** `<link to the deployed app>`
+**Open the app:** `http://localhost:8501`
 
 Use the menu on the left to switch between the labs. All settings are in the sidebar or on the page itself, and the results update instantly — no code needed.
 
