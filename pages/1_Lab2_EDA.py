@@ -6,7 +6,7 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-st.set_page_config(page_title="Lab 2 — EDA", page_icon="🔎", layout="wide")
+st.set_page_config(page_title="Лабораторная 2", layout="wide")
 sns.set_theme(style="whitegrid")
 
 DATASETS = {
@@ -76,7 +76,7 @@ def show_fig(fig):
     plt.close(fig)
 
 
-st.title("🔎 Лабораторная 2 — Разведочный анализ данных")
+st.title("Лабораторная 2 — Разведочный анализ данных")
 
 # ---------------------------------------------------------------- sidebar
 st.sidebar.header("1. Датасет")
@@ -133,7 +133,7 @@ if fdf.empty:
     st.warning("После применения фильтров не осталось данных. Ослабьте фильтры.")
     st.stop()
 
-tab_data, tab_stats, tab_plots = st.tabs(["📋 Таблица", "📊 Статистика и пропуски", "📈 Графики"])
+tab_data, tab_stats, tab_plots = st.tabs(["Таблица", "Статистика и пропуски", "Графики"])
 
 # ---------------------------------------------------------------- table tab
 with tab_data:
@@ -148,7 +148,7 @@ with tab_data:
         shown = fdf[cols].sample(min(n, len(fdf)), random_state=42)
     st.dataframe(shown, use_container_width=True)
     st.download_button(
-        "⬇️ Скачать отфильтрованные данные (CSV)",
+        " Скачать отфильтрованные данные (CSV)",
         fdf.to_csv(index=False).encode("utf-8"),
         file_name="filtered_data.csv",
         mime="text/csv",

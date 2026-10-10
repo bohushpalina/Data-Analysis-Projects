@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Lab 3 — Регрессия", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Лабораторная 3", layout="wide")
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL_DIRS = [ROOT / "saved_models", ROOT / "models"]
@@ -76,7 +76,7 @@ def load_dataset(slug):
         return None
 
 
-st.title("📈 Лабораторная 3 — Симулятор предсказаний (линейная регрессия)")
+st.title("Лабораторная 3 — Симулятор предсказаний (линейная регрессия)")
 st.write(
     "Выберите обученную модель, задайте значения признаков ползунками слева — "
     "прогноз пересчитывается мгновенно по формуле регрессии."

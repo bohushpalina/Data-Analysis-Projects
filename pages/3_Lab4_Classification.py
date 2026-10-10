@@ -19,11 +19,11 @@ from sklearn.tree import DecisionTreeClassifier
 
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
-st.set_page_config(page_title="Lab 4 — Классификация", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="Лабораторная 4", layout="wide")
 sns.set_theme(style="whitegrid")
 
 DATASETS = {
-    "Датасет №1: Pima Indians Diabetes": "jameshramos/pima-indians-diabetes",
+    "Датасет №1: Pima Indians Diabetes": "salihacur/diabetes",
     "Датасет №2: Churn Modelling": "shrutimechlearn/churn-modelling",
 }
 
@@ -31,7 +31,7 @@ DATASETS = {
 BEST_FROM_NOTEBOOK = pd.DataFrame(
     {
         "Алгоритм": ["kNN", "Decision Tree", "SVM", "MLP"],
-        "Датасет №1 (диабет)": ["11 соседей", "глубина 3", "C=1, ядро linear", "1 слой (50), relu"],
+        "Датасет №1 (диабет)": ["11 соседей", "глубина 3", "C=0.1, ядро linear", "1 слой (50), relu"],
         "Датасет №2 (отток)": ["9 соседей", "глубина 5", "C=1, ядро rbf", "1 слой (50), relu"],
     }
 )
@@ -52,10 +52,13 @@ def prepare_dataset(ds_name):
 
     if ds_name.startswith("Датасет №1"):
         class_names = ["Нет диабета", "Диабет"]
-        zero_cols = ["glucose_concentration", "diastolic_blood_pressure",
-                     "triceps_sf_thickness", "serum_insulin", "bmi"]
-        df[zero_cols] = df[zero_cols].replace(0, np.nan)
-        X, y = df.drop(columns="diabetes"), df["diabetes"]
+        # целевой столбец в этом датасете называется Outcome
+        target = "Outcome"
+        # нули в этих признаках означают пропуски (Pregnancies не трогаем: там 0 возможен)
+        zero_missing = {"glucose", "bloodpressure", "skinthickness", "insulin", "bmi"}
+        cols = [c for c in df.columns if c.lower() in zero_missing]
+        df[cols] = df[cols].replace(0, np.nan)
+        X, y = df.drop(columns=target), df[target]
         X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
         imputer = SimpleImputer(strategy="median")
         X_tr = imputer.fit_transform(X_tr)
@@ -101,7 +104,7 @@ def train_and_evaluate(ds_name, model_name, params_items):
 
 
 # ---------------------------------------------------------------- UI
-st.title("🤖 Лабораторная 4 — Классификация")
+st.title("Лабораторная 4 — Классификация")
 st.write(
     "Выберите датасет и классификатор, меняйте гиперпараметры в боковой панели — "
     "модель переобучается, а матрица неточностей и метрики обновляются сразу."
@@ -192,7 +195,7 @@ if "history" not in st.session_state:
     st.session_state["history"] = []
 
 b1, b2 = st.columns([1, 1])
-if b1.button("➕ Добавить текущую модель в таблицу сравнения"):
+if b1.button("Добавить текущую модель в таблицу сравнения"):
     st.session_state["history"].append(
         {
             "Датасет": ds_name,
@@ -204,7 +207,7 @@ if b1.button("➕ Добавить текущую модель в таблицу
             "F1": result["F1"],
         }
     )
-if b2.button("🗑️ Очистить таблицу"):
+if b2.button("Очистить таблицу"):
     st.session_state["history"] = []
 
 hist = pd.DataFrame(st.session_state["history"])
